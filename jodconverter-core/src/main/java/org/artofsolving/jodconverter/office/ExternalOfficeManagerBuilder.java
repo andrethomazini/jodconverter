@@ -12,6 +12,7 @@
 //
 package org.artofsolving.jodconverter.office;
 
+import com.sun.star.lang.*;
 import com.sun.star.lib.uno.helper.UnoUrl;
 
 /**
@@ -29,7 +30,7 @@ public class ExternalOfficeManagerBuilder {
      * 
      * @return the created {@link ExternalOfficeManager}.
      */
-    public OfficeManager build() {
+    public OfficeManager build() throws com.sun.star.lang.IllegalArgumentException {
 
         UnoUrl unoUrl = connectionProtocol == OfficeConnectionProtocol.SOCKET ? UnoUrlUtils.socket(portNumber) : UnoUrlUtils.pipe(pipeName);
         return new ExternalOfficeManager(unoUrl, connectOnStart);

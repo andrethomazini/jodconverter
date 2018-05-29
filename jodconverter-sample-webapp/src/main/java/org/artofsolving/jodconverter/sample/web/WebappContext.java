@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
 
+import com.sun.star.lang.*;
+import com.sun.star.lang.IllegalArgumentException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.artofsolving.jodconverter.OfficeDocumentConverter;
@@ -27,7 +29,7 @@ public class WebappContext {
 	private final OfficeManager officeManager;
 	private final OfficeDocumentConverter documentConverter;
 
-	public WebappContext(ServletContext servletContext) {
+	public WebappContext(ServletContext servletContext) throws com.sun.star.lang.IllegalArgumentException {
 		DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
 		String fileSizeMax = servletContext.getInitParameter(PARAMETER_FILEUPLOAD_FILE_SIZE_MAX);
 		fileUpload = new ServletFileUpload(fileItemFactory);
@@ -56,7 +58,7 @@ public class WebappContext {
 		documentConverter = new OfficeDocumentConverter(officeManager);
 	}
 
-	protected static void init(ServletContext servletContext) {
+	protected static void init(ServletContext servletContext) throws IllegalArgumentException {
 		WebappContext instance = new WebappContext(servletContext);
 		servletContext.setAttribute(KEY, instance);
 		instance.officeManager.start();

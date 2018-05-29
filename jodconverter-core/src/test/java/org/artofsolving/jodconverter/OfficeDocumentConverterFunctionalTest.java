@@ -20,6 +20,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Set;
 
+import com.sun.star.lang.*;
 import org.apache.commons.io.FilenameUtils;
 import org.artofsolving.jodconverter.document.DocumentFormat;
 import org.artofsolving.jodconverter.document.DocumentFormatRegistry;
@@ -30,7 +31,7 @@ import org.testng.annotations.Test;
 @Test(groups = "functional")
 public class OfficeDocumentConverterFunctionalTest {
 
-    public void runAllPossibleConversions() throws IOException {
+    public void runAllPossibleConversions() throws IOException, com.sun.star.lang.IllegalArgumentException {
         OfficeManager officeManager = new DefaultOfficeManagerBuilder().build();
         OfficeDocumentConverter converter = new OfficeDocumentConverter(officeManager);
         DocumentFormatRegistry formatRegistry = converter.getFormatRegistry();

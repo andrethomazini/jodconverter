@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/jodconverter-core/jodconverter-core.iml" filepath="$PROJECT_DIR$/jodconverter-core/jodconverter-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jodconverter-pom.iml" filepath="$PROJECT_DIR$/jodconverter-pom.iml" />
+      <module fileurl="file://$PROJECT_DIR$/jodconverter-sample-webapp/jodconverter-sample-webapp.iml" filepath="$PROJECT_DIR$/jodconverter-sample-webapp/jodconverter-sample-webapp.iml" />
+    </modules>
+  </component>
+</project>

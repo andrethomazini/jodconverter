@@ -12,25 +12,20 @@
 //
 package org.artofsolving.jodconverter.cli;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
-import org.apache.commons.cli.PosixParser;
+import org.apache.commons.cli.*;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.artofsolving.jodconverter.OfficeDocumentConverter;
 import org.artofsolving.jodconverter.document.DefaultDocumentFormatRegistry;
 import org.artofsolving.jodconverter.document.DocumentFormatRegistry;
 import org.artofsolving.jodconverter.document.JsonDocumentFormatRegistry;
-import org.artofsolving.jodconverter.office.OfficeManager;
 import org.artofsolving.jodconverter.office.DefaultOfficeManagerBuilder;
+import org.artofsolving.jodconverter.office.OfficeManager;
 import org.json.JSONException;
+import com.sun.star.lang.IllegalArgumentException;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Command line interface executable.
@@ -91,18 +86,31 @@ public class Convert {
         }
 
         DefaultOfficeManagerBuilder configuration = new DefaultOfficeManagerBuilder();
-        configuration.setPortNumber(port);
+
+        try {
+            configuration.setPortNumber(port);
+        } catch (IllegalArgumentException e) {}
+
         if (commandLine.hasOption(OPTION_TIMEOUT.getOpt())) {
             int timeout = Integer.parseInt(commandLine.getOptionValue(OPTION_TIMEOUT.getOpt()));
             configuration.setTaskExecutionTimeout(timeout * 1000);
         }
         if (commandLine.hasOption(OPTION_USER_PROFILE.getOpt())) {
             String templateProfileDir = commandLine.getOptionValue(OPTION_USER_PROFILE.getOpt());
-            configuration.setTemplateProfileDir(new File(templateProfileDir));
+
+            try {
+                configuration.setTemplateProfileDir(new File(templateProfileDir));
+            } catch(IllegalArgumentException e){}
+
         }
 
-        OfficeManager officeManager = configuration.build();
-        officeManager.start();
+        OfficeManager officeManager = null;
+
+        try {
+            officeManager = configuration.build();
+            officeManager.start();
+        } catch(IllegalArgumentException e) {}
+
         OfficeDocumentConverter converter = new OfficeDocumentConverter(officeManager, registry);
         try {
             if (outputFormat == null) {
