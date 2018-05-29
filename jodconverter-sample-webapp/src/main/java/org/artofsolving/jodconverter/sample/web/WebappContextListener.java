@@ -6,7 +6,9 @@ import javax.servlet.ServletContextListener;
 public class WebappContextListener implements ServletContextListener {
 
 	public void contextInitialized(ServletContextEvent event) {
-		WebappContext.init(event.getServletContext());
+        try {
+            WebappContext.init(event.getServletContext());
+        } catch (Exception e) {}
 	}
 
 	public void contextDestroyed(ServletContextEvent event) {

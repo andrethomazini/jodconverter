@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.artofsolving.jodconverter</groupId>
     <artifactId>jodconverter-pom</artifactId>
-    <version>3.1-sbra-SNAPSHOT</version>
+    <version>2.9.9</version>
   </parent>
   <artifactId>jodconverter-core</artifactId>
   <packaging>jar</packaging>
@@ -25,22 +25,22 @@
       <artifactId>commons-lang3</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.libreoffice</groupId>
+      <groupId>org.openoffice</groupId>
       <artifactId>juh</artifactId>
       <version>${office.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.libreoffice</groupId>
+      <groupId>org.openoffice</groupId>
       <artifactId>jurt</artifactId>
       <version>${office.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.libreoffice</groupId>
+      <groupId>org.openoffice</groupId>
       <artifactId>ridl</artifactId>
       <version>${office.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.libreoffice</groupId>
+      <groupId>org.openoffice</groupId>
       <artifactId>unoil</artifactId>
       <version>${office.version}</version>
     </dependency>

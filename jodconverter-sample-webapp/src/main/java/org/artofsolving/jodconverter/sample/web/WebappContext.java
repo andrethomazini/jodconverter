@@ -5,6 +5,9 @@ import java.util.logging.Logger;
 
 import javax.servlet.ServletContext;
 
+import com.sun.star.lang.*;
+import com.sun.star.lang.IllegalArgumentException;
+import com.sun.star.lang.NullPointerException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.artofsolving.jodconverter.OfficeDocumentConverter;
@@ -27,7 +30,7 @@ public class WebappContext {
 	private final OfficeManager officeManager;
 	private final OfficeDocumentConverter documentConverter;
 
-	public WebappContext(ServletContext servletContext) {
+	public WebappContext(ServletContext servletContext) throws IllegalArgumentException, NullPointerException {
 		DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
 		String fileSizeMax = servletContext.getInitParameter(PARAMETER_FILEUPLOAD_FILE_SIZE_MAX);
 		fileUpload = new ServletFileUpload(fileItemFactory);
@@ -41,7 +44,7 @@ public class WebappContext {
 		DefaultOfficeManagerBuilder configuration = new DefaultOfficeManagerBuilder();
 		String officePortParam = servletContext.getInitParameter(PARAMETER_OFFICE_PORT);
 		if (officePortParam != null) {
-		    configuration.setPortNumber(Integer.parseInt(officePortParam));
+            configuration.setPortNumber(Integer.parseInt(officePortParam));
 		}
 		String officeHomeParam = servletContext.getInitParameter(PARAMETER_OFFICE_HOME);
 		if (officeHomeParam != null) {
@@ -49,14 +52,16 @@ public class WebappContext {
 		}
 		String officeProfileParam = servletContext.getInitParameter(PARAMETER_OFFICE_PROFILE);
 		if (officeProfileParam != null) {
-		    configuration.setTemplateProfileDir(new File(officeProfileParam));
+            try {
+                configuration.setTemplateProfileDir(new File(officeProfileParam));
+            } catch(com.sun.star.lang.IllegalArgumentException e) {}
 		}
 
-		officeManager = configuration.build();
-		documentConverter = new OfficeDocumentConverter(officeManager);
+        officeManager = configuration.build();
+        documentConverter = new OfficeDocumentConverter(officeManager);
 	}
 
-	protected static void init(ServletContext servletContext) {
+	protected static void init(ServletContext servletContext) throws IllegalArgumentException, NullPointerException {
 		WebappContext instance = new WebappContext(servletContext);
 		servletContext.setAttribute(KEY, instance);
 		instance.officeManager.start();

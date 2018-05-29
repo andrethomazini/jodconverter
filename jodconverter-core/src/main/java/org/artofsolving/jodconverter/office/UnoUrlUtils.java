@@ -12,6 +12,8 @@
 //
 package org.artofsolving.jodconverter.office;
 
+import com.sun.star.lang.*;
+import com.sun.star.lang.IllegalArgumentException;
 import com.sun.star.lib.uno.helper.UnoUrl;
 
 /**
@@ -31,7 +33,7 @@ import com.sun.star.lib.uno.helper.UnoUrl;
  */
 class UnoUrlUtils {
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws com.sun.star.lang.IllegalArgumentException{
 
         com.sun.star.lib.uno.helper.UnoUrl url = UnoUrl.parseUnoUrl("socket,host=127.0.0.1,port=2002,tcpNoDelay=1;urp;StarOffice.ServiceManager");
 
@@ -53,7 +55,7 @@ class UnoUrlUtils {
      *            the pipe.
      * @return the created UnoUrl.
      */
-    public static UnoUrl pipe(String pipeName) {
+    public static UnoUrl pipe(String pipeName) throws com.sun.star.lang.IllegalArgumentException {
         return UnoUrl.parseUnoUrl("pipe,name=" + pipeName + ";urp;StarOffice.ServiceManager");
     }
 
@@ -65,6 +67,13 @@ class UnoUrlUtils {
      * @return the created UnoUrl.
      */
     public static UnoUrl socket(int port) {
-        return UnoUrl.parseUnoUrl("socket,host=127.0.0.1,port=" + port + ",tcpNoDelay=1;urp;StarOffice.ServiceManager");
+        UnoUrl url = null;
+
+        try {
+            url = UnoUrl.parseUnoUrl("socket,host=127.0.0.1,port=" + port + ",tcpNoDelay=1;urp;StarOffice.ServiceManager");
+        } catch(IllegalArgumentException e) {}
+
+        return url;
+
     }
 }

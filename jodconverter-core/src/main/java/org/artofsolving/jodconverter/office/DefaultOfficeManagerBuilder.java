@@ -14,6 +14,9 @@ package org.artofsolving.jodconverter.office;
 
 import java.io.File;
 
+import com.sun.star.lang.*;
+import com.sun.star.lang.IllegalArgumentException;
+import com.sun.star.lang.NullPointerException;
 import org.apache.commons.lang3.Validate;
 import org.artofsolving.jodconverter.process.ProcessManager;
 
@@ -63,7 +66,7 @@ public class DefaultOfficeManagerBuilder {
      * @return the created OfficeManager
      * @throws IllegalStateException
      */
-    public OfficeManager build() throws IllegalStateException {
+    public OfficeManager build() throws IllegalStateException, com.sun.star.lang.IllegalArgumentException {
 
         if (officeHome == null) {
             throw new IllegalStateException("officeHome not set and could not be auto-detected");
@@ -194,10 +197,10 @@ public class DefaultOfficeManagerBuilder {
      *            the pipe name to use.
      * @return the updated configuration.
      */
-    public DefaultOfficeManagerBuilder setPipeName(String pipeName) throws NullPointerException {
+    public DefaultOfficeManagerBuilder setPipeName(String pipeName) throws IllegalArgumentException, NullPointerException {
 
         Validate.notNull(pipeName);
-        return setPipeNames(new String[] { pipeName });
+        return setPipeNames(new String[]{pipeName});
     }
 
     /**
@@ -223,7 +226,7 @@ public class DefaultOfficeManagerBuilder {
      *            the port number to use.
      * @return the updated configuration.
      */
-    public DefaultOfficeManagerBuilder setPortNumber(int portNumber) {
+    public DefaultOfficeManagerBuilder setPortNumber(int portNumber) throws NullPointerException, IllegalArgumentException {
 
         return setPortNumbers(new int[] { portNumber });
     }

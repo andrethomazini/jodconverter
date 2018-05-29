@@ -15,6 +15,9 @@ package org.artofsolving.jodconverter.cli;
 import java.io.File;
 import java.io.IOException;
 
+import com.sun.star.lang.*;
+import com.sun.star.lang.IllegalArgumentException;
+import com.sun.star.lang.NullPointerException;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.HelpFormatter;
@@ -91,18 +94,29 @@ public class Convert {
         }
 
         DefaultOfficeManagerBuilder configuration = new DefaultOfficeManagerBuilder();
-        configuration.setPortNumber(port);
+
+        try {
+            configuration.setPortNumber(port);
+        } catch(Exception e) {}
+
         if (commandLine.hasOption(OPTION_TIMEOUT.getOpt())) {
             int timeout = Integer.parseInt(commandLine.getOptionValue(OPTION_TIMEOUT.getOpt()));
             configuration.setTaskExecutionTimeout(timeout * 1000);
         }
         if (commandLine.hasOption(OPTION_USER_PROFILE.getOpt())) {
             String templateProfileDir = commandLine.getOptionValue(OPTION_USER_PROFILE.getOpt());
-            configuration.setTemplateProfileDir(new File(templateProfileDir));
+            try {
+                configuration.setTemplateProfileDir(new File(templateProfileDir));
+            } catch(IllegalArgumentException e) {}
         }
 
-        OfficeManager officeManager = configuration.build();
-        officeManager.start();
+        OfficeManager officeManager = null;
+
+        try{
+            officeManager = configuration.build();
+            officeManager.start();
+        } catch (com.sun.star.lang.IllegalArgumentException e) {}
+
         OfficeDocumentConverter converter = new OfficeDocumentConverter(officeManager, registry);
         try {
             if (outputFormat == null) {
