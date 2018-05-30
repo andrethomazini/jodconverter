@@ -12,11 +12,11 @@ ext {
     commons_io                         : "commons-io:commons-io:$commonsIoVersion",
     commons_lang3                      : "org.apache.commons:commons-lang3:$commonsLang3Version",
 
-    // Office Libraries (OpenOffice and LibreOffice)
-    office_juh                         : (useOpenOffice ? "org.openoffice:juh:$openOfficeVersion"   : "org.libreoffice:juh:$libreOfficeVersion"),
-    office_jurt                        : (useOpenOffice ? "org.openoffice:jurt:$openOfficeVersion"  : "org.libreoffice:jurt:$libreOfficeVersion"),
-    office_ridl                        : (useOpenOffice ? "org.openoffice:ridl:$openOfficeVersion"  : "org.libreoffice:ridl:$libreOfficeVersion"),
-    office_unoil                       : (useOpenOffice ? "org.openoffice:unoil:$openOfficeVersion" : "org.libreoffice:unoil:$libreOfficeVersion"),
+    // Office Libraries (OpenOffice)
+    office_juh                         : "org.openoffice:juh:$openOfficeVersion",
+    office_jurt                        : "org.openoffice:jurt:$openOfficeVersion",
+    office_ridl                        : "org.openoffice:ridl:$openOfficeVersion",
+    office_unoil                       : "org.openoffice:unoil:$openOfficeVersion",
 
     // Spring Libraries
     spring_core                        : "org.springframework:spring-core:$springVersion",
