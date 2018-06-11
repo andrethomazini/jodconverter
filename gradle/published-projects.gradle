@@ -18,26 +18,21 @@ uploadArchives {
     mavenDeployer {
       // POM signature
       beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-            
+
       // Target repository
-      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-        authentication(userName: findProperty('ossrhUsername'), password: findProperty('ossrhPassword'))
+      repository(url: "http://192.168.198.59:8081/nexus/content/repositories/techgov/") {
+        authentication(userName: "deployment", password: "deployment123")
       }
-            
-      // Snapshot repository
-      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-        authentication(userName: findProperty('ossrhUsername'), password: findProperty('ossrhPassword'))
-      }
-            
+
       pom.project {
         name project.name
         description project.description
         packaging 'jar'
-        url 'https://github.com/sbraconnier/jodconverter'
+        url 'https://github.com/andrethomazini/jodconverter'
         scm {
-          connection 'scm:git:https://github.com/sbraconnier/jodconverter.git'
-          developerConnection 'scm:git:git@https://github.com/sbraconnier/jodconverter.git'
-          url 'https://github.com/sbraconnier/jodconverter.git'
+          connection 'scm:git:https://github.com/andrethomazini/jodconverter.git'
+          developerConnection 'scm:git:git@https://github.com/andrethomazini/jodconverter.git'
+          url 'https://github.com/andrethomazini/jodconverter.git'
         }
 
         licenses {
@@ -49,9 +44,9 @@ uploadArchives {
 
         developers {
           developer {
-            id = 'sbraconnier'
-            name = 'Simon Braconnier'
-            email = 'simonbraconnier@gmail.com'
+            id = 'andrethomazini'
+            name = 'André Thomazini'
+            email = 'andrethomazini@db1.com.br'
           }
         }
       }
