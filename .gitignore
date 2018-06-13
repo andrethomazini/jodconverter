@@ -9,5 +9,6 @@ test-output
 .checkstyle
 
 # InteliJ
-.idea
-.iml
+*.idea
+*.iml
+*.backup
