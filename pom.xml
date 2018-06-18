@@ -70,7 +70,7 @@
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <office.version>4.1.2</office.version>
+    <office.version>4.1.2.db1</office.version>
     <slf4j.version>1.7.21</slf4j.version>
   </properties>
   <dependencyManagement>
